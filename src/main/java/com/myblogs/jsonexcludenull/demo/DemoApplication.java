@@ -12,12 +12,12 @@ import com.myblogs.jsonexcludenull.model.RegistrationResponse;
 
 @SpringBootApplication
 public class DemoApplication {
-	
-   private static boolean toExcludeNull;
+
+   private static boolean toIncludeNull;
 	  
-   @Value("${config.response.json.format.exclude_null}") 
-   public void setToExcludeNull(boolean value) { 
-	   	toExcludeNull = value; 
+   @Value("${config.response.format.include.null}") 
+   public void setToIncludeNull(boolean value) { 
+	   toIncludeNull = value; 
    }
 	 
    public static void main(String[] args) {
@@ -34,8 +34,8 @@ public class DemoApplication {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		  
-		if (toExcludeNull) mapper.setSerializationInclusion(Include.NON_NULL); 
-		else mapper.setSerializationInclusion(Include.ALWAYS);
+		if (toIncludeNull) mapper.setSerializationInclusion(Include.ALWAYS); 
+		else mapper.setSerializationInclusion(Include.NON_NULL);
 		        
 		String regRespStr = null;
 		try {
